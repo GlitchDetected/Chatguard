@@ -7,8 +7,7 @@ use tracing::error;
 pub fn registercmds() -> FrameworkBuilder<State, Box<dyn std::error::Error + Send + Sync>> {
     let commands = getallcmd();
 
-    // Load previous commands from a stored state (if applicable)
-    let mut prevcmds: HashMap<String, String> = HashMap::new(); // Simulated storage
+    let mut prevcmds: HashMap<String, String> = HashMap::new();
 
     for cmd in &commands {
         let cmd_name = cmd.name.clone();
@@ -22,11 +21,9 @@ pub fn registercmds() -> FrameworkBuilder<State, Box<dyn std::error::Error + Sen
             println!("🚀 Registered Command: {}", cmd_name);
         }
 
-        // Update the stored state
         prevcmds.insert(cmd_name, cmd_desc);
     }
 
-    // Check for deleted commands
     for oldcmd in prevcmds.keys() {
         if !commands.iter().any(|cmd| &cmd.name == oldcmd) {
             println!("❌ Deleted Command: {}", oldcmd);
