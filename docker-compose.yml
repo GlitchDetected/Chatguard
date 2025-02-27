@@ -1,0 +1,8 @@
+version: "3"
+services:
+  chatguard:
+    build: .
+    container_name: chatguard
+    env_file:
+      - .env
+    restart: unless-stopped
