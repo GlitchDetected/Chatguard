@@ -6,4 +6,4 @@ COPY Cargo.lock Cargo.toml ./
 
 COPY . .
 
-CMD ["Cargo", "run"]
+CMD ["cargo", "run"]

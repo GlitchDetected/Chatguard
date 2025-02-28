@@ -4,3 +4,6 @@
 
 cargo clean
 cargo run
+
+docker build -t chatguard .
+docker compose up -d
