@@ -1,33 +1,23 @@
-ARG RUST_VERSION=1.85.0
-ARG APP_NAME=chatguard
-FROM rust:${RUST_VERSION}-slim-bullseye AS build
-ARG APP_NAME
-WORKDIR /app
+FROM messense/rust-musl-cross:x86_64-musl as chef
+RUN cargo install cargo-chef
+WORKDIR /chatguard
 
-RUN --mount=type=bind,source=src,target=src \
-    --mount=type=bind,source=Cargo.toml,target=Cargo.toml \
-    --mount=type=bind,source=Cargo.lock,target=Cargo.lock \
-    --mount=type=cache,target=/app/target/ \
-    --mount=type=cache,target=/usr/local/cargo/registry/ \
-    --mount=type=bind,source=migrations,target=migrations \
-    <<EOF
-set -e
-cargo build --locked --release
-cp ./target/release/$APP_NAME /bin/server
-EOF
+FROM chef AS planner
+# Copy source code from previous stage
+COPY . .
+# Generate info for caching dependencies
+RUN cargo chef prepare --recipe-path recipe.json
 
+FROM chef AS builder
+COPY --from=planner /chatguard/recipe.json recipe.json
+# Build & cache dependencies
+RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
+# Copy source code from previous stage
+COPY . .
+# Build application
+RUN cargo build --release --target x86_64-unknown-linux-musl
 
-ARG UID=10001
-RUN adduser \
-    --disabled-password \
-    --gecos "" \
-    --home "/nonexistent" \
-    --shell "/sbin/nologin" \
-    --no-create-home \
-    --uid "${UID}" \
-    appuser
-USER appuser
-
-COPY --from=build /bin/chatguard /bin/
-
-CMD ["/bin/chatguard"]
+# Create a new stage with a minimal image
+FROM scratch
+COPY --from=builder /chatguard/target/x86_64-unknown-linux-musl/release/chatguard /chatguard
+ENTRYPOINT ["/chatguard"]
