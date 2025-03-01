@@ -2,6 +2,8 @@ use crate::events::commands::registercmds;
 use crate::state::State;
 use poise::serenity_prelude::{self as serenity};
 use std::env;
+use serenity::model::gateway::Activity;
+use serenity::model::user::OnlineStatus;
 
 pub async fn ready() {
     let framework = registercmds()
@@ -9,14 +11,13 @@ pub async fn ready() {
         .intents(serenity::GatewayIntents::all())
         .setup(|ctx, ready, framework| {
             Box::pin(async move {
-                use serenity::model::gateway::Activity;
-                use serenity::model::user::OnlineStatus;
+                let state = State::default();
 
                 let activity = Activity::playing("Give ChatGuard a vote! | /help");
                 let status = OnlineStatus::Idle;
                 ctx.set_presence(Some(activity.clone()), status).await;
 
-                let status_emoji = match status {
+                let statuslogger = match status {
                     OnlineStatus::Online => "🌿",
                     OnlineStatus::Idle => "🌙",
                     OnlineStatus::DoNotDisturb => "🔴",
@@ -27,7 +28,7 @@ pub async fn ready() {
                 println!(
                     "{} is now {} ({})",
                     ready.user.tag(),
-                    status_emoji,
+                    statuslogger,
                     activity.name
                 );
 
@@ -39,7 +40,7 @@ pub async fn ready() {
                         .expect("failed to listen for ctrl+c");
                     sm.lock().await.shutdown_all().await;
                 });
-                Ok(State {})
+                Ok(state)
             })
         });
 

@@ -1,9 +1,9 @@
 FROM rust:latest
 
-WORKDIR /app
-
-COPY Cargo.lock Cargo.toml ./
+WORKDIR /usr/src/app
 
 COPY . .
+
+RUN cargo install --path .
 
 CMD ["cargo", "run"]
