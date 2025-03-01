@@ -2,11 +2,13 @@ FROM rust:1.85 as builder
 
 WORKDIR /app
 
-COPY . .
+COPY ./Cargo.lock ./Cargo.toml ./
 
-RUN cargo build --release --target x86_64-unknown-linux-musl
+RUN mkdir src && echo "fn main {}" > src/main.rs
+RUN cargo build --release
 
 FROM scratch
-WORKDIR /app
-COPY --from=builder /chatguard/target/x86_64-unknown-linux-musl/release/chatguard /chatguard
-CMD ["./chatguard"]
+COPY ./src ./src
+RUN cargo build --release
+
+CMD ./target/release/chatguard
