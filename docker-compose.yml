@@ -2,7 +2,7 @@ services:
   chatguard:
     build: 
       context: .
-      target: final
+      dockerfile: Dockerfile
     container_name: chatguard
     env_file:
       - .env
