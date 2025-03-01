@@ -1,6 +1,8 @@
 services:
   chatguard:
-    build: .
+    build: 
+      context: .
+      target: final
     container_name: chatguard
     env_file:
       - .env
