@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY ./Cargo.lock ./Cargo.toml ./
 
-RUN mkdir src && echo "fn main {}" > src/main.rs
 RUN cargo build --release
 
 FROM scratch
-COPY ./src ./src
-RUN cargo build --release
 
-CMD ./target/release/chatguard
+WORKDIR /usr/local/bin
+
+COPY --from=builder /app/target/release/chatguard .
+
+CMD ["./chatguard"]
