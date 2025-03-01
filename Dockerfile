@@ -1,12 +1,19 @@
+# building
 FROM rust:1.85 as builder
 
 WORKDIR /app
 
-COPY ./Cargo.lock ./Cargo.toml ./
+# accept the build argument
+# ARG DATABASE_URL
+
+# ENV DATABASE_URL=$DATABASE_URL
+
+COPY . . 
 
 RUN cargo build --release
 
-FROM scratch
+# production
+FROM ubuntu
 
 WORKDIR /usr/local/bin
 
