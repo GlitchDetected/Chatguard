@@ -1,0 +1,9 @@
+DROP TABLE afkusers
+DROP TABLE autoroles
+DROP TABLE commands
+DROP TABLE prefixes
+DROP TABLE ranks
+DROP TABLE tickets
+DROP TABLE rankconfigs
+DROP TABLE ticketconfigs
+DROP TABLE uptimes

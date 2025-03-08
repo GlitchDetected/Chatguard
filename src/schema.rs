@@ -1,4 +1,6 @@
-table! {
+// @generated automatically by Diesel CLI.
+
+diesel::table! {
     afkusers (user_id) {
         user_id -> Varchar,
         message -> Varchar,
@@ -7,7 +9,7 @@ table! {
     }
 }
 
-table! {
+diesel::table! {
     autoroles (guild_id) {
         guild_id -> Varchar,
         role_id -> Varchar,
@@ -16,7 +18,7 @@ table! {
     }
 }
 
-table! {
+diesel::table! {
     commands (id) {
         id -> Varchar,
         name -> Varchar,
@@ -26,14 +28,24 @@ table! {
     }
 }
 
-table! {
+diesel::table! {
     prefixes (guild_id) {
         guild_id -> Varchar,
         guildprefix -> Varchar,
     }
 }
 
-table! {
+diesel::table! {
+    rankconfigs (guild_id) {
+        guild_id -> Varchar,
+        rankchannel -> Nullable<Varchar>,
+        rankconfigure -> Bool,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
+    }
+}
+
+diesel::table! {
     ranks (user_id, guild_id) {
         user_id -> Varchar,
         guild_id -> Varchar,
@@ -47,28 +59,7 @@ table! {
     }
 }
 
-table! {
-    tickets (ticket_id) {
-        ticket_id -> Varchar,
-        user_id -> Varchar,
-        channel_id -> Varchar,
-        guild_id -> Varchar,
-        created_at -> Timestamp,
-        updated_at -> Timestamp,
-    }
-}
-
-table! {
-    rankconfigs (guild_id) {
-        guild_id -> Varchar,
-        rankchannel -> Nullable<Varchar>,
-        rankconfigure -> Bool,
-        created_at -> Timestamp,
-        updated_at -> Timestamp,
-    }
-}
-
-table! {
+diesel::table! {
     ticketconfigs (guild_id) {
         guild_id -> Varchar,
         ticket_logs_channel_id -> Varchar,
@@ -81,29 +72,34 @@ table! {
     }
 }
 
-table! {
-    uptimes (id) {
-        id -> Int4,
-        botuptime -> BigInt,
+diesel::table! {
+    tickets (ticket_id) {
+        ticket_id -> Varchar,
+        user_id -> Varchar,
+        channel_id -> Varchar,
+        guild_id -> Varchar,
         created_at -> Timestamp,
         updated_at -> Timestamp,
     }
 }
 
-// joinable!(views -> users (user_id));
-// joinable!(views -> videos (video_id));
-// The joinable! macro in Diesel defines foreign key relationships, 
-// allowing seamless SQL joins between tables. In this case, 
-// it enables joining views with users via user_id and views with videos via video_id for efficient querying.
+diesel::table! {
+    uptimes (id) {
+        id -> Int4,
+        botuptime -> Int8,
+        created_at -> Timestamp,
+        updated_at -> Timestamp,
+    }
+}
 
-allow_tables_to_appear_in_same_query!(
+diesel::allow_tables_to_appear_in_same_query!(
     afkusers,
     autoroles,
     commands,
     prefixes,
-    ranks,
-    tickets,
     rankconfigs,
+    ranks,
     ticketconfigs,
-    uptimes
+    tickets,
+    uptimes,
 );

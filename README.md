@@ -62,6 +62,8 @@ DATABASE_URL=pgsqlconnectionstring
 DISCORD_TOKEN=botoken
 ```
 
+- diesel migration run
+
 - cargo run
 
 - you can always do `cargo clean` to clean out the target directory
