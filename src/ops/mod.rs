@@ -1,9 +1,0 @@
-pub mod afk;
-pub mod autorole;
-pub mod commands;
-pub mod prefix;
-pub mod rank;
-pub mod rankconfigs;
-pub mod ticketconfigs;
-pub mod tickets;
-pub mod uptime;
