@@ -1,23 +1,29 @@
 <a id="readme-top"></a>
 
-## ChatGuard
-> Protect your chat for free!
-`Project by GlitchDetected`
----
+  <p href="https://github.com/GlitchDetected/ChatGuard" align="center">
+    <img src="static/chatguard.png" alt="Logo" width="192" height="192">
+  </p>
 
-Core Philosophy
+  <br/>
+
+<p align="center">
+<a href="https://chatguard.net/">Website</a> -
+<a href="https://discord.gg/GNdJMJCBdu">Discord</a> -
+<a href="https://chatguard.net/docs">Documentation</a>
+</p>
+
+> [!WARNING] 
+>ChatGuard is still a work in progress. Some things may not work as expected.
+
+`ChatGuard` is a open source moderation integration for your Discord server.
+
+## Core Philosophy
 | Path                    | Description        |
 | ----------------------- | ------------------ |
 | `./src/commands`             | Includes all the commands for the bot (slash & prefix cmds) |
-| `./src/events`                 | Includes the command & event handler |
-
-  <a href="https://github.com/GlitchDetected/ChatGuard">
-    <img src="static/chatguard.png" alt="Logo" width="1000" height="200">
-  </a>
+| `./src/db`                 | Database stuff |
 
 ---
-
-**Fill in the environment variables before running or else...**
 
 <details>
   <summary>Table of Contents</summary>
@@ -44,18 +50,18 @@ Core Philosophy
 * [![Typescript][Typescript]][Typescript-url]
 * [![React][React.js]][React-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">🔝</a>)</p>
 
 ## Features
-- Support User State
-- Support Graceful Shutdown when Bot Receives the Signal Interrupt
-- Some random slash and prefix commands
-- Event handler
+- Moderation
+- AFK system
+- Slash and prefix commands
 
-## setup
+## Setup
+**Make sure that you have filled in all the environment variables or else...**
 
 This is how you run the bot
-* install rust at (https://www.rust-lang.org/tools/install) if you haven't already
+* Install rust @ (https://www.rust-lang.org/tools/install) if you haven't already
 
 ```env
 DATABASE_URL=pgsqlconnectionstring
@@ -66,11 +72,11 @@ DISCORD_TOKEN=botoken
 
 - cargo run
 
-- you can always do `cargo clean` to clean out the target directory
+- `cargo clean` to clean out the target directory (optional)
 
 See the [open issues](https://github.com/GlitchDetected/ChatGuard/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">🔝</a>)</p>
 
 ## Deploy
 
@@ -109,16 +115,16 @@ Don't forget to give the project a star!
   <img src="https://contrib.rocks/image?repo=GlitchDetected/ChatGuard" alt="contrib.rocks image" />
 </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">🔝</a>)</p>
 
 
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the Unlicense License. See `LICENSE.txt` for more information.
+Distributed under the Unlicense License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">🔝</a>)</p>
 
 ## Resources
 - https://www.postgresql.org/download/macosx/
@@ -127,7 +133,7 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 - https://nodejs.org/en/download
 - https://www.rust-lang.org/tools/install
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">🔝</a>)</p>
 
 [contributors-shield]: https://img.shields.io/github/contributors/GlitchDetected/ChatGuard.svg?style=for-the-badge
 [contributors-url]: https://github.com/GlitchDetected/ChatGuard/graphs/contributors
